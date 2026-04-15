@@ -1,0 +1,11 @@
+@import "tailwindcss";
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  * { box-sizing: border-box; }
+  /* Prevent horizontal overflow globally */
+  body { overflow-x: hidden; }
+  main, nav, footer { position: relative; z-index: 1; }
+  /* Responsive images */
+  img { max-width: 100%; height: auto; }
+}
