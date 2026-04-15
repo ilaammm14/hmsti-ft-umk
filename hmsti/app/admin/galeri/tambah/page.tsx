@@ -82,7 +82,7 @@ export default function TambahGaleriPage() {
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-950">
       <AdminSidebar />
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8">
         <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-8">Tambah Galeri</h1>
         <form onSubmit={handleSubmit} className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-sm border dark:border-gray-700 max-w-2xl space-y-5">
           <div>

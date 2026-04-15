@@ -74,7 +74,7 @@ export default function KelolaGaleriPage({ params }: { params: Promise<{ id: str
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-950">
       <AdminSidebar />
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8">
         <div className="flex items-center gap-3 mb-8">
           <Link href="/admin/galeri" className="p-2 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
             <ArrowLeft size={20} />

@@ -6,6 +6,9 @@ import OrgChart from '@/components/OrgChart'
 import DivisiChart from '@/components/DivisiChart'
 import InternalChart from '@/components/InternalChart'
 import ExternalChart from '@/components/ExternalChart'
+import OrgChartMobile from '@/components/OrgChartMobile'
+import InternalChartMobile from '@/components/InternalChartMobile'
+import ExternalChartMobile from '@/components/ExternalChartMobile'
 
 export const metadata = { title: 'Struktur Organisasi - HMSTI' }
 
@@ -96,11 +99,18 @@ export default async function StrukturPage() {
                 <span className="text-amber-400 font-semibold text-xs uppercase tracking-widest">Kepengurusan Aktif</span>
                 <h2 className="text-2xl font-bold text-white mt-1">Pengurus Inti HMSTI</h2>
               </div>
-              <OrgChart pengurus={pengurusInti} />
+              {/* Desktop */}
+              <div className="hidden md:block">
+                <OrgChart pengurus={pengurusInti} />
+              </div>
+              {/* Mobile */}
+              <div className="md:hidden">
+                <OrgChartMobile pengurus={pengurusInti} />
+              </div>
             </section>
           )}
 
-          {/* Divisi Internal — pakai InternalChart */}
+          {/* Divisi Internal */}
           {internal.length > 0 && (
             <section className="mb-16">
               <div className="flex items-center gap-3 mb-8">
@@ -110,7 +120,14 @@ export default async function StrukturPage() {
                 </span>
                 <div className="flex-1 h-px bg-gray-800" />
               </div>
-              <InternalChart internal={internal} />
+              {/* Desktop */}
+              <div className="hidden md:block">
+                <InternalChart internal={internal} />
+              </div>
+              {/* Mobile */}
+              <div className="md:hidden">
+                <InternalChartMobile internal={internal} />
+              </div>
             </section>
           )}
 
@@ -124,7 +141,14 @@ export default async function StrukturPage() {
                 </span>
                 <div className="flex-1 h-px bg-gray-800" />
               </div>
-              <ExternalChart external={external} />
+              {/* Desktop */}
+              <div className="hidden md:block">
+                <ExternalChart external={external} />
+              </div>
+              {/* Mobile */}
+              <div className="md:hidden">
+                <ExternalChartMobile external={external} />
+              </div>
             </section>
           )}
 

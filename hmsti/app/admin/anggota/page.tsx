@@ -16,7 +16,7 @@ export default async function AdminAnggotaPage() {
   return (
     <div className="flex min-h-screen bg-gray-100 dark:bg-gray-950">
       <AdminSidebar />
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-4 md:p-8 pb-24 md:pb-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Anggota</h1>
           <Link href="/admin/anggota/tambah"
