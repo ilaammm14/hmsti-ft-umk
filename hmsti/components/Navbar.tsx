@@ -52,9 +52,9 @@ export default function Navbar() {
               <Image src={settings.logo_kampus} alt="Logo Kampus" width={32} height={32}
                 className="object-contain opacity-80 transition-all group-hover:opacity-100 group-hover:scale-105" />
             )}
-            <div className="hidden sm:block">
-              <p className="font-bold text-amber-400 text-sm leading-tight">Himpunan Mahasiswa Sistem dan Teknologi Informasi</p>
-              <p className="text-xs text-gray-500 leading-tight">
+            <div className="block">
+              <p className="font-bold text-amber-400 text-xs sm:text-sm leading-tight line-clamp-1">Himpunan Mahasiswa Sistem dan Teknologi Informasi</p>
+              <p className="text-xs text-gray-500 leading-tight hidden sm:block">
                 {settings?.nama_kampus || 'Universitas Muhammadiyah Kendari'}
               </p>
             </div>
