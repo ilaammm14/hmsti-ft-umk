@@ -193,7 +193,7 @@ export default function OrgChart({ pengurus }: Props) {
   if (!pengurus.length) return null
 
   return (
-    <div ref={containerRef} className="relative w-full">
+    <div ref={containerRef} className="relative w-full overflow-x-auto">
       <svg className="absolute inset-0 pointer-events-none" width={size.w} height={size.h}>
         {lines.map((l, i) => (
           <line key={i} x1={l.x1} y1={l.y1} x2={l.x2} y2={l.y2}
@@ -201,7 +201,7 @@ export default function OrgChart({ pengurus }: Props) {
         ))}
       </svg>
 
-      <div className="flex flex-col items-center pb-8 px-2">
+      <div className="flex flex-col items-center pb-8 px-2 min-w-max mx-auto">
 
         {baris1.length > 0 && (
           <div className="flex justify-center gap-8 mb-20">

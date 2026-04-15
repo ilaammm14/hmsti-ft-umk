@@ -77,33 +77,35 @@ export default function ExternalChart({ external }: Props) {
         <div className="h-px bg-amber-500/30 w-3/4 max-w-lg" />
       </div>
 
-      <div className="flex flex-wrap justify-center gap-3 mb-6 mt-0">
-        {DEPARTEMEN.map((dept) => {
-          const isActive = activeDept === dept
-          const count = getAnggotaDept(dept).length
-          return (
-            <div key={dept} className="flex flex-col items-center">
-              <div className="w-px h-6 bg-amber-500/30" />
-              <button
-                onClick={() => setActiveDept(isActive ? null : dept)}
-                className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all border touch-manipulation ${
-                  isActive
-                    ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/20'
-                    : 'bg-gray-800 text-gray-300 border-gray-700 hover:border-amber-500/50 active:bg-amber-500/20'
-                }`}
-                style={{ minHeight: '44px', minWidth: '44px' }}
-              >
-                <span>{dept}</span>
-                {count > 0 && (
-                  <span className={`text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-black/20' : 'bg-amber-500/20 text-amber-400'}`}>
-                    {count}
-                  </span>
-                )}
-                {isActive ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
-              </button>
-            </div>
-          )
-        })}
+      <div className="w-full overflow-x-auto pb-2">
+        <div className="flex justify-start sm:justify-center gap-0 min-w-max mx-auto px-4">
+          {DEPARTEMEN.map((dept) => {
+            const isActive = activeDept === dept
+            const count = getAnggotaDept(dept).length
+            return (
+              <div key={dept} className="flex flex-col items-center">
+                <div className="w-px h-6 bg-amber-500/30" />
+                <button
+                  onClick={() => setActiveDept(isActive ? null : dept)}
+                  className={`flex items-center gap-1.5 px-3 py-2.5 mx-1.5 rounded-xl text-xs sm:text-sm font-semibold transition-all border touch-manipulation whitespace-nowrap ${
+                    isActive
+                      ? 'bg-amber-500 text-black border-amber-500 shadow-lg shadow-amber-500/20'
+                      : 'bg-gray-800 text-gray-300 border-gray-700 hover:border-amber-500/50 active:bg-amber-500/20'
+                  }`}
+                  style={{ minHeight: '44px' }}
+                >
+                  <span>{dept}</span>
+                  {count > 0 && (
+                    <span className={`text-xs px-1.5 py-0.5 rounded-full ${isActive ? 'bg-black/20' : 'bg-amber-500/20 text-amber-400'}`}>
+                      {count}
+                    </span>
+                  )}
+                  {isActive ? <ChevronUp size={14} /> : <ChevronDown size={14} />}
+                </button>
+              </div>
+            )
+          })}
+        </div>
       </div>
 
       {activeDept && (
