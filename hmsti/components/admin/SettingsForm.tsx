@@ -20,6 +20,10 @@ export default function SettingsForm({ settings }: { settings: Settings | null }
     alamat: settings?.alamat || '',
     video_url: settings?.video_url || '',
     video_judul: settings?.video_judul || '',
+    stat_anggota: settings?.stat_anggota || '200+',
+    stat_kegiatan: settings?.stat_kegiatan || '30+',
+    stat_divisi: settings?.stat_divisi || '6',
+    stat_tahun: settings?.stat_tahun || '2010',
   })
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -113,6 +117,36 @@ export default function SettingsForm({ settings }: { settings: Settings | null }
           <div>
             <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Alamat</label>
             <input name="alamat" value={form.alamat} onChange={handleChange}
+              className="w-full px-4 py-2.5 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+        </div>
+      </div>
+
+      {/* Stats Beranda */}
+      <div>
+        <h3 className="font-semibold text-gray-900 dark:text-white mb-4 pb-2 border-b dark:border-gray-700">
+          Statistik Beranda
+          <span className="text-xs font-normal text-gray-400 ml-2">(angka yang tampil di beranda)</span>
+        </h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Anggota Aktif</label>
+            <input name="stat_anggota" value={form.stat_anggota} onChange={handleChange} placeholder="200+"
+              className="w-full px-4 py-2.5 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Kegiatan/Tahun</label>
+            <input name="stat_kegiatan" value={form.stat_kegiatan} onChange={handleChange} placeholder="30+"
+              className="w-full px-4 py-2.5 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Jumlah Divisi</label>
+            <input name="stat_divisi" value={form.stat_divisi} onChange={handleChange} placeholder="6"
+              className="w-full px-4 py-2.5 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Tahun Berdiri</label>
+            <input name="stat_tahun" value={form.stat_tahun} onChange={handleChange} placeholder="2010"
               className="w-full px-4 py-2.5 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500" />
           </div>
         </div>

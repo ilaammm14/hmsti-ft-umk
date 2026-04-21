@@ -26,7 +26,7 @@ export default async function HomePage() {
     const [k, g, s] = await Promise.all([
       supabase.from('kegiatan').select('*').order('tanggal', { ascending: false }).limit(3),
       supabase.from('galeri').select('*, images:galeri_images(image_url)').order('created_at', { ascending: false }).limit(6),
-      supabase.from('settings').select('video_url, video_judul').single(),
+      supabase.from('settings').select('*').single(),
     ])
     kegiatan = k.data
     galeri = g.data
@@ -72,10 +72,10 @@ export default async function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 text-center">
             {[
-              { label: 'Anggota Aktif', value: '200+' },
-              { label: 'Kegiatan/Tahun', value: '30+' },
-              { label: 'Divisi', value: '6' },
-              { label: 'Tahun Berdiri', value: '2010' },
+              { label: 'Anggota Aktif', value: settings?.stat_anggota || '200+' },
+              { label: 'Kegiatan/Tahun', value: settings?.stat_kegiatan || '30+' },
+              { label: 'Divisi', value: settings?.stat_divisi || '6' },
+              { label: 'Tahun Berdiri', value: settings?.stat_tahun || '2010' },
             ].map((stat) => (
               <div key={stat.label} className="p-3 sm:p-4">
                 <p className="text-2xl sm:text-3xl font-bold text-black">{stat.value}</p>

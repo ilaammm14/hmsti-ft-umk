@@ -11,6 +11,10 @@ export interface Settings {
   alamat: string | null
   video_url: string | null
   video_judul: string | null
+  stat_anggota: string | null
+  stat_kegiatan: string | null
+  stat_divisi: string | null
+  stat_tahun: string | null
   created_at: string
 }
 
