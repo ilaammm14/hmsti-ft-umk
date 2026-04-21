@@ -188,7 +188,7 @@ export default async function StrukturPage() {
             <section>
               <div className="flex items-center gap-3 mb-6">
                 <div className="flex-1 h-px bg-gray-800" />
-                <h2 className="text-lg font-bold text-amber-400 uppercase tracking-wider">Pengurus Demisioner</h2>
+                <h2 className="text-lg font-bold text-amber-400 uppercase tracking-wider">Demisioner</h2>
                 <div className="flex-1 h-px bg-gray-800" />
               </div>
               {periodeList.map((periode) => (
