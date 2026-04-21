@@ -24,6 +24,8 @@ export default function KelolaGaleriPage({ params }: { params: Promise<{ id: str
   const [galeri, setGaleri] = useState<Galeri | null>(null)
   const [images, setImages] = useState<GaleriImage[]>([])
   const [uploading, setUploading] = useState(false)
+  const [editForm, setEditForm] = useState({ judul: '', deskripsi: '', kategori: 'umum' })
+  const [savingInfo, setSavingInfo] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
   const inputId = useId()
 
@@ -31,10 +33,27 @@ export default function KelolaGaleriPage({ params }: { params: Promise<{ id: str
     params.then(({ id }) => {
       setGaleriId(id)
       const supabase = createClient()
-      supabase.from('galeri').select('*').eq('id', id).single().then(({ data }) => setGaleri(data))
+      supabase.from('galeri').select('*').eq('id', id).single().then(({ data }) => {
+        setGaleri(data)
+        if (data) setEditForm({ judul: data.judul || '', deskripsi: data.deskripsi || '', kategori: data.kategori || 'umum' })
+      })
       supabase.from('galeri_images').select('*').eq('galeri_id', id).order('created_at').then(({ data }) => setImages(data || []))
     })
   }, [params])
+
+  const handleSaveInfo = async () => {
+    if (!galeriId) return
+    setSavingInfo(true)
+    const supabase = createClient()
+    const { error } = await supabase.from('galeri').update({
+      judul: editForm.judul,
+      deskripsi: editForm.deskripsi,
+      kategori: editForm.kategori,
+    }).eq('id', galeriId)
+    setSavingInfo(false)
+    if (error) toast.error('Gagal menyimpan: ' + error.message)
+    else toast.success('Info galeri diperbarui')
+  }
 
   const handleFiles = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(e.target.files || [])
@@ -83,6 +102,33 @@ export default function KelolaGaleriPage({ params }: { params: Promise<{ id: str
             <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{galeri?.judul || 'Galeri'}</h1>
             <p className="text-sm text-gray-400">{images.length} foto</p>
           </div>
+        </div>
+
+        {/* Form edit info galeri */}
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-5 shadow-sm border dark:border-gray-700 mb-6 space-y-4">
+          <h2 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Info Galeri</h2>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Judul</label>
+            <input value={editForm.judul} onChange={e => setEditForm(f => ({ ...f, judul: e.target.value }))}
+              className="w-full px-3 py-2 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500" />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Deskripsi</label>
+            <textarea value={editForm.deskripsi} onChange={e => setEditForm(f => ({ ...f, deskripsi: e.target.value }))}
+              rows={3} placeholder="Tambahkan deskripsi galeri..."
+              className="w-full px-3 py-2 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none" />
+          </div>
+          <div>
+            <label className="block text-xs font-medium text-gray-600 dark:text-gray-400 mb-1">Kategori</label>
+            <select value={editForm.kategori} onChange={e => setEditForm(f => ({ ...f, kategori: e.target.value }))}
+              className="w-full px-3 py-2 border dark:border-gray-600 rounded-xl bg-gray-50 dark:bg-gray-700 text-gray-900 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+              {['umum', 'kegiatan', 'prestasi', 'dokumentasi'].map(k => <option key={k} value={k}>{k}</option>)}
+            </select>
+          </div>
+          <button onClick={handleSaveInfo} disabled={savingInfo}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-60 text-white text-sm font-medium rounded-xl transition-colors">
+            {savingInfo ? 'Menyimpan...' : 'Simpan Perubahan'}
+          </button>
         </div>
 
         {/* Upload */}
