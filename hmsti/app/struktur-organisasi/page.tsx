@@ -48,17 +48,20 @@ function AnggotaCard({ anggota }: { anggota: Anggota }) {
 export default async function StrukturPage() {
   let pengurus: Anggota[] = []
   let dewanPengawas: Anggota[] = []
+  let dewanPembimbing: Anggota[] = []
   let demisioner: Anggota[] = []
 
   if (isSupabaseConfigured()) {
     const supabase = await createClient()
-    const [p, d, dm] = await Promise.all([
+    const [p, d, dp, dm] = await Promise.all([
       supabase.from('anggota').select('*').eq('tipe', 'pengurus').order('urutan'),
       supabase.from('anggota').select('*').eq('tipe', 'dewan_pengawas').order('urutan'),
+      supabase.from('anggota').select('*').eq('tipe', 'dewan_pembimbing').order('urutan'),
       supabase.from('anggota').select('*').eq('tipe', 'demisioner').order('periode', { ascending: false }).order('urutan'),
     ])
     pengurus = p.data || []
     dewanPengawas = d.data || []
+    dewanPembimbing = dp.data || []
     demisioner = dm.data || []
   }
 
@@ -162,6 +165,20 @@ export default async function StrukturPage() {
               </div>
               <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {dewanPengawas.map((a) => <AnggotaCard key={a.id} anggota={a} />)}
+              </div>
+            </section>
+          )}
+
+          {/* Dewan Pembimbing */}
+          {dewanPembimbing.length > 0 && (
+            <section className="mb-16">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="flex-1 h-px bg-gray-800" />
+                <h2 className="text-lg font-bold text-amber-400 uppercase tracking-wider">Dewan Pembimbing</h2>
+                <div className="flex-1 h-px bg-gray-800" />
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+                {dewanPembimbing.map((a) => <AnggotaCard key={a.id} anggota={a} />)}
               </div>
             </section>
           )}
