@@ -66,11 +66,11 @@ export default function AnggotaForm({ anggota }: { anggota?: Anggota }) {
     if (name === 'bagian') {
       setForm(prev => ({ ...prev, bagian: value, namaDivisi: DEPARTEMEN[value]?.[0] || '-' }))
     } else if (name === 'tipe') {
-      // Reset field yang tidak relevan saat tipe berubah
+      const tipeValue = value as 'pengurus' | 'dewan_pengawas' | 'dewan_pembimbing' | 'demisioner'
       setForm(prev => ({
         ...prev,
-        tipe: value,
-        jabatan: value === 'pengurus' ? prev.jabatan : '',
+        tipe: tipeValue,
+        jabatan: '',
         bagian: 'inti',
         namaDivisi: '-',
       }))
