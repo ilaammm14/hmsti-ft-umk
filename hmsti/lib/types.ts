@@ -53,7 +53,7 @@ export interface Anggota {
   divisi: string
   foto: string | null
   instagram: string | null
-  tipe: 'pengurus' | 'dewan_pengawas' | 'demisioner'
+  tipe: 'pengurus' | 'dewan_pengawas' | 'dewan_pembimbing' | 'demisioner'
   periode: string
   urutan: number
   created_at: string
